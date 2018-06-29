@@ -1,14 +1,13 @@
 #!/usr/bin/env node
-// eslint-disable-file no-console
-const { guldName, getConfig, setConfig, unsetConfig } = require('./index.js')
+const { guldName, getConfig, setConfig, unsetConfig } = require('guld-config')
 const flat = require('flat')
 const _get = require('lodash.get')
 const program = require('commander')
 const VERSION = require('./package.json').version
 
 program
-  // .usage('<key> Get a config by key (alias of get)')
-  // .usage('<key> <value> Set a config key to the given value (alias of set)')
+  .description('Manage git config files the guld way.')
+  .usage('<key> [value] Get or set a config key depending on pressence of value argument.')
   .version(VERSION)
   .option('--global', 'Use the global config file')
   .option('--local', 'Use the local config file')
@@ -25,7 +24,7 @@ program
   .description('Set a config key to the given value.')
 program
   .command('unset')
-  .description('Get the distro, if linux OS.')
+  .description('Unset a config key.')
 program
   .command('list')
   .description('List all config key/value pairs.')
@@ -66,42 +65,6 @@ switch (cmd) {
       }
     })
     break
-  /* case 'setup':
-    inquirer
-      .prompt([
-        {
-          name: guldname,
-          type: input,
-          message: "What is your individual guld name?",
-          default: await guldName()
-        },
-        {
-          name: fullname,
-          type: input,
-          message: "What is your public full name? (optional)",
-          default: await guldName()
-        },
-        {
-          name: guldmail,
-          type: input,
-          message: "What is your public email address? (optional)"
-        },
-        {
-          name: signingkey,
-          type: input,
-          message: "Which of these is your PGP key id? (blank for group)"
-        }
-      ])
-      .then(answers => {
-        answers.commit = {gpgsign: true}
-        setupConfig(answers).then(c => {
-          var cfg = flat(c)
-          for (var c in cfg) {
-            console.log(`${c}=${cfg[c]}`)
-          }
-        })
-      })
-    break */
   default:
     if (program.args.length === 1) {
       getConfig(scope).then(c => {

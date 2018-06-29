@@ -1,6 +1,6 @@
-# git-config
+# git-config-cli
 
-Guld configuration helper manages git config files.
+CLI guld configuration helper manages git config files.
 
 ### Example Output
 
@@ -23,25 +23,10 @@ core.logallrefupdates=true
 ### Install
 
 ```
-npm i -g guld-config
+npm i -g guld-config-cli
 ```
 
 ### Usage
-
-```
-// async
-// assume it's empty
-var cfg = await getConfig('local') // {}
-cfg.core.test = true
-setConfig('cfg.core.test', true)
-var cfg = await getConfig('local') // {core: {test: true}}
-```
-
-##### Node
-
-```
-const { guldName, getConfig, setConfig, unsetConfig } = require('guld-config')
-```
 
 ##### CLI
 
@@ -65,4 +50,3 @@ const { guldName, getConfig, setConfig, unsetConfig } = require('guld-config')
     unset                     Get the distro, if linux OS.
     list                      List all config key/value pairs.
 ```
-
