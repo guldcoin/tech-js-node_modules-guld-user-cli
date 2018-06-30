@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { guldName, getConfig, setConfig, unsetConfig } = require('guld-config')
+const { guldName, getConfig, setConfig, unsetConfig } = require('guld-git-config')
 const flat = require('flat')
 const _get = require('lodash.get')
 const program = require('commander')

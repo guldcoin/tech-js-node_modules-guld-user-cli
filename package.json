@@ -1,10 +1,9 @@
 {
-  "name": "guld-config-cli",
-  "version": "1.0.0",
+  "name": "guld-git-config-cli",
+  "version": "1.0.1",
   "description": "Guld configuration helper manages git config files.",
-  "main": "./cli.js",
   "bin": {
-    "guld-config": "./cli.js"
+    "guld-git-config": "./cli.js"
   },
   "scripts": {
     "test": "./node_modules/mocha/bin/_mocha",
@@ -13,9 +12,9 @@
   },
   "keywords": [
     "guld",
+    "git",
     "config",
-    "cli",
-    "environment"
+    "cli"
   ],
   "author": "isysd",
   "license": "MIT",
@@ -23,14 +22,10 @@
     "commander": "^2.16.0",
     "flat": "^4.0.0",
     "guld-config": "^1.1.0",
-    "guld-env": "^0.3.0",
-    "guld-fs": "^1.0.0",
-    "guld-git-dir": "^1.0.0",
-    "lodash.get": "^4.4.2",
-    "window-or-global": "^1.0.1"
+    "guld-git-config": "^1.1.1",
+    "lodash.get": "^4.4.2"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
     "eslint": "^5.0.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-es5": "^1.3.1",
@@ -43,8 +38,7 @@
     "pre-commit": "^1.2.2"
   },
   "pre-commit": [
-    "lint",
-    "test"
+    "lint"
   ],
   "readme": "README.md",
   "engines": {

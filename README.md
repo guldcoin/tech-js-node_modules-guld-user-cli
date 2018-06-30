@@ -1,29 +1,11 @@
-# git-config-cli
+# guld-git-config-cli
 
 CLI guld configuration helper manages git config files.
-
-### Example Output
-
-```
-$ guld-config list
-user.username=isysd
-user.signingkey=C7EA0E59D0660BF6848614B6441BDDD420F44729
-commit.gpgsign=true
-alias.pushall=!git remote | xargs -L1 -I R git push R $2
-host.github=isysd
-host.bitbucket=isysd
-host.gitlab=isysd
-core.testing4=true
-core.repositoryformatversion=0
-core.filemode=true
-core.bare=false
-core.logallrefupdates=true
-```
 
 ### Install
 
 ```
-npm i -g guld-config-cli
+npm i -g guld-git-config-cli
 ```
 
 ### Usage
@@ -31,7 +13,9 @@ npm i -g guld-config-cli
 ##### CLI
 
 ```
-  Usage: guld-config [options] [command]
+  Usage: guld-git-config <key> [value] Get or set a config key depending on pressence of value argument.
+
+  Manage git config files the guld way.
 
   Options:
 
@@ -47,6 +31,6 @@ npm i -g guld-config-cli
     name                      Get the guld name of the current user.
     get <key>                 Get a config by key.
     set <key> <value>         Set a config key to the given value.
-    unset                     Get the distro, if linux OS.
+    unset                     Unset a config key.
     list                      List all config key/value pairs.
 ```
