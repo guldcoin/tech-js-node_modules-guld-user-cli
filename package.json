@@ -1,6 +1,6 @@
 {
   "name": "guld-user-cli",
-  "version": "0.2.0",
+  "version": "0.3.2",
   "description": "Guld user management tools. Get, list, and check users of the guld group.",
   "bin": {
     "guld-user": "./cli.js"
@@ -20,8 +20,9 @@
   "dependencies": {
     "commander": "^2.16.0",
     "guld-git-config": "^1.1.1",
-    "guld-user": "^0.2.0",
-    "inquirer": "^6.0.0"
+    "guld-user": "^0.3.2",
+    "inquirer": "^6.0.0",
+    "window-or-global": "^1.0.1"
   },
   "devDependencies": {
     "eslint": "^5.0.1",

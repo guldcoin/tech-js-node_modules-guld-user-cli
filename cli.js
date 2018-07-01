@@ -1,14 +1,19 @@
 #!/usr/bin/env node
 const { setupConfig } = require('guld-git-config')
-const { getName, getFullName, exists, validate } = require('guld-user')
+const { getName, getFullName, exists, validate, branches } = require('guld-user')
 const inquirer = require('inquirer')
 const program = require('commander')
+const global = require('window-or-global')
 const VERSION = require('./package.json').version
 
 /* eslint-disable no-console */
 program
   .description('Guld user management tools. Get, list, and check users of the guld group.')
   .version(VERSION)
+  .option('-u --user <name>', 'The user name to run as.', (n) => {
+    if (n) process.env.GULDNAME = global.GULDNAME = n
+    return true
+  })
 program
   .command('init [user-name] [full-name]')
   .description('Initialize a new guld user.')
@@ -18,6 +23,9 @@ program
 program
   .command('fullname')
   .description('Get the full name of the current user.')
+program
+  .command('branches')
+  .description('List the user branches which are locally available.')
 program
   .command('exists')
   .description('Check whether a guld name already exists.')
@@ -97,6 +105,11 @@ switch (cmd) {
   case 'validate':
     if (program.args.length > 0) checkName(validate, program.args[0])
     else getName().then(n => checkName(validate, n))
+    break
+  case 'branches':
+    branches().then(b => {
+      console.log(b.join('\n'))
+    })
     break
   case 'fullname':
     getFullName().then(console.log)
