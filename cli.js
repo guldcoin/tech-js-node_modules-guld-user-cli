@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { setupConfig } = require('guld-git-config')
-const { getName, getFullName, exists, validate, branches } = require('guld-user')
+const { getName, getFullName, exists, validate, branches, getHosts } = require('guld-user')
 const inquirer = require('inquirer')
 const program = require('commander')
 const global = require('window-or-global')
@@ -26,6 +26,9 @@ program
 program
   .command('branches')
   .description('List the user branches which are locally available.')
+program
+  .command('hosts')
+  .description('List a user\'s usernames for known hosts. (i.e. github, bitbucket, gitlab)')
 program
   .command('exists')
   .description('Check whether a guld name already exists.')
@@ -109,6 +112,13 @@ switch (cmd) {
   case 'branches':
     branches().then(b => {
       console.log(b.join('\n'))
+    })
+    break
+  case 'hosts':
+    getHosts().then(hosts => {
+      console.log(Object.keys(hosts).map(h => {
+        return `${h} ${hosts[h]}`
+      }).join('\n'))
     })
     break
   case 'fullname':
