@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 const { setupConfig } = require('guld-git-config')
-const { getName, getFullName, exists, validate, branches, getHosts } = require('guld-user')
+const { getName, getFullName, exists, validate, branches, getAlias } = require('guld-user')
 const inquirer = require('inquirer')
 const program = require('commander')
 const global = require('window-or-global')
 const VERSION = require('./package.json').version
+var processing = false
 
 /* eslint-disable no-console */
 program
@@ -27,8 +28,22 @@ program
   .command('branches')
   .description('List the user branches which are locally available.')
 program
-  .command('hosts')
-  .description('List a user\'s usernames for known hosts. (i.e. github, bitbucket, gitlab)')
+  .command('alias [name]')
+  .description('List a user\'s usernames for known aliases for other networks. (i.e. github, bitbucket, gitlab, twitter)')
+  .option('-n --network <network>', 'The network for which to get the user\'s alias.')
+  .action(async (uname, options) => {
+    uname = uname || getName()
+    getAlias(uname, options.network).then(als => {
+      if (options.network) console.log(als)
+      else {
+        console.log(Object.keys(als).map(a => {
+          return `${a} ${als[a]}`
+        }).join('\n'))
+      }
+      process.exit()
+    })
+    processing = true
+  })
 program
   .command('exists')
   .description('Check whether a guld name already exists.')
@@ -90,43 +105,40 @@ async function checkName (fn, n) {
   }
 }
 
-switch (cmd) {
-  case 'init':
-    if (program.args.length > 0) inquireNames(...program.args)
-    else {
-      getName().then(user => {
-        getFullName().then(full => {
-          inquireNames(user, full)
+if (!processing) {
+  switch (cmd) {
+    case 'init':
+      if (program.args.length > 0) inquireNames(...program.args)
+      else {
+        getName().then(user => {
+          getFullName().then(full => {
+            inquireNames(user, full)
+          })
         })
+      }
+      break
+    case 'exists':
+      if (program.args.length > 0) checkName(exists, program.args[0])
+      else getName().then(n => checkName(exists, n))
+      break
+    case 'validate':
+      if (program.args.length > 0) checkName(validate, program.args[0])
+      else getName().then(n => checkName(validate, n))
+      break
+    case 'branches':
+      branches().then(b => {
+        console.log(b.join('\n'))
       })
-    }
-    break
-  case 'exists':
-    if (program.args.length > 0) checkName(exists, program.args[0])
-    else getName().then(n => checkName(exists, n))
-    break
-  case 'validate':
-    if (program.args.length > 0) checkName(validate, program.args[0])
-    else getName().then(n => checkName(validate, n))
-    break
-  case 'branches':
-    branches().then(b => {
-      console.log(b.join('\n'))
-    })
-    break
-  case 'hosts':
-    getHosts().then(hosts => {
-      console.log(Object.keys(hosts).map(h => {
-        return `${h} ${hosts[h]}`
-      }).join('\n'))
-    })
-    break
-  case 'fullname':
-    getFullName().then(console.log)
-    break
-  case 'name':
-  default:
-    getName().then(console.log)
-    break
+      break
+    case 'alias':
+      break
+    case 'fullname':
+      getFullName().then(console.log)
+      break
+    case 'name':
+    default:
+      getName().then(console.log)
+      break
+  }
 }
 /* eslint-enable no-console */
