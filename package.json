@@ -19,8 +19,8 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.16.0",
-    "guld-git-config": "^1.2.2",
-    "guld-user": "^0.5.3",
+    "guld-git-config": "^1.2.3",
+    "guld-user": "^0.5.4",
     "inquirer": "^6.0.0",
     "window-or-global": "^1.0.1"
   },
@@ -42,5 +42,8 @@
   "readme": "README.md",
   "engines": {
     "node": ">=7"
-  }
+  },
+  "homepage": "https://github.com/isysd/tech-js-node_modules-guld-user-cli#readme",
+  "preferGlobal": true,
+  "repository": "git@github.com:isysd/tech-js-node_modules-guld-user-cli.git"
 }
