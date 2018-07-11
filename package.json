@@ -19,8 +19,8 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^2.16.0",
-    "guld-git-config": "^1.2.1",
-    "guld-user": "^0.5.2",
+    "guld-git-config": "^1.2.2",
+    "guld-user": "^0.5.3",
     "inquirer": "^6.0.0",
     "window-or-global": "^1.0.1"
   },
