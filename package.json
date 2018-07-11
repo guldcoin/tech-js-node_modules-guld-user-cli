@@ -1,6 +1,6 @@
 {
   "name": "guld-user-cli",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Guld user management tools. Get, list, and check users of the guld group.",
   "bin": {
     "guld-user": "./cli.js"
