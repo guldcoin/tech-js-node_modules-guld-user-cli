@@ -4,13 +4,16 @@ const { getName, getFullName, exists, validate, branches, getAlias } = require('
 const inquirer = require('inquirer')
 const program = require('commander')
 const global = require('window-or-global')
-const VERSION = require('./package.json').version
+const thispkg = require(`${__dirname}/package.json`)
+const runCLI = require('guld-cli-run')
 var processing = false
 
 /* eslint-disable no-console */
 program
-  .description('Guld user management tools. Get, list, and check users of the guld group.')
-  .version(VERSION)
+  .name(thispkg.name.replace('-cli', ''))
+  .version(thispkg.version)
+  .description(thispkg.description)
+//  .description('Guld user management tools. Get, list, and check users of the guld group.')
   .option('-u --user <name>', 'The user name to run as.', (n) => {
     if (n) process.env.GULDNAME = global.GULDNAME = n
     return true
@@ -142,3 +145,5 @@ if (!processing) {
   }
 }
 /* eslint-enable no-console */
+runCLI.bind(program)()
+module.exports = program
