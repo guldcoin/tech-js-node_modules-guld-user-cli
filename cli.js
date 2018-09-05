@@ -63,10 +63,6 @@ program
   .description('Check whether a guld name is registered.')
 */
 
-program.parse(process.argv)
-
-var cmd
-if (program.commands.map(c => c._name).indexOf(program.args[0]) !== -1) cmd = program.args.shift()
 /* eslint-disable no-console */
 
 function inquireNames (user, full) {
@@ -108,42 +104,48 @@ async function checkName (fn, n) {
   }
 }
 
-if (!processing) {
-  switch (cmd) {
-    case 'init':
-      if (program.args.length > 0) inquireNames(...program.args)
-      else {
-        getName().then(user => {
-          getFullName().then(full => {
-            inquireNames(user, full)
+function runner () {
+  program.parse(process.argv)
+
+  var cmd
+  if (program.commands.map(c => c._name).indexOf(program.args[0]) !== -1) cmd = program.args.shift()
+  if (!processing) {
+    switch (cmd) {
+      case 'init':
+        if (program.args.length > 0) inquireNames(...program.args)
+        else {
+          getName().then(user => {
+            getFullName().then(full => {
+              inquireNames(user, full)
+            })
           })
+        }
+        break
+      case 'exists':
+        if (program.args.length > 0) checkName(exists, program.args[0])
+        else getName().then(n => checkName(exists, n))
+        break
+      case 'validate':
+        if (program.args.length > 0) checkName(validate, program.args[0])
+        else getName().then(n => checkName(validate, n))
+        break
+      case 'branches':
+        branches().then(b => {
+          console.log(b.join('\n'))
         })
-      }
-      break
-    case 'exists':
-      if (program.args.length > 0) checkName(exists, program.args[0])
-      else getName().then(n => checkName(exists, n))
-      break
-    case 'validate':
-      if (program.args.length > 0) checkName(validate, program.args[0])
-      else getName().then(n => checkName(validate, n))
-      break
-    case 'branches':
-      branches().then(b => {
-        console.log(b.join('\n'))
-      })
-      break
-    case 'alias':
-      break
-    case 'fullname':
-      getFullName().then(console.log)
-      break
-    case 'name':
-    default:
-      getName().then(console.log)
-      break
+        break
+      case 'alias':
+        break
+      case 'fullname':
+        getFullName().then(console.log)
+        break
+      case 'name':
+      default:
+        getName().then(console.log)
+        break
+    }
   }
 }
 /* eslint-enable no-console */
-runCLI.bind(program)()
+runCLI.bind(program)(program.help, runner)
 module.exports = program
