@@ -3,17 +3,20 @@
   "version": "0.5.9",
   "description": "Guld user management tools. Get, list, and check users of the guld group.",
   "bin": {
-    "guld-user": "./cli.js"
+    "guld-user": "cli.js"
   },
   "scripts": {
     "lint": "eslint --env browser *.js*",
-    "fix": "eslint --fix *.js*"
+    "fix": "eslint --fix *.js*",
+    "test": "mocha test/*.js",
+    "test:lint": "npm run lint && npm run test"
   },
   "keywords": [
     "guld",
     "git",
     "config",
-    "cli"
+    "cli",
+    "node"
   ],
   "author": "isysd",
   "license": "MIT",
@@ -34,7 +37,8 @@
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.1.0",
     "mocha": "^5.2.0",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "chai": "^4.1.2"
   },
   "pre-commit": [
     "lint"
@@ -43,7 +47,7 @@
   "engines": {
     "node": ">=7"
   },
-  "homepage": "https://bitbucket.org/isysd/tech-js-node_modules-guld-user-cli#readme",
+  "homepage": "https://guld.tech/cli/guld-user-cli.html",
   "preferGlobal": true,
-  "repository": "git@bitbucket.org:isysd/tech-js-node_modules-guld-user-cli.git"
+  "repository": "https://bitbucket.org/guld/tech-js-node_modules-guld-user-cli"
 }
